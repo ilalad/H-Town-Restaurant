@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tables</title>
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="text-center"><span class="glyphicon glyphicon-fire"></span>H-Town Restaurant</h1>
+            <h2 class="text-center">Current Reservation and Waiting List</h2>
+            <hr>
+            <a href="/reserve"><button class="btn btn-primary btn-lg"><span class="fa fa-list-alt"></span>Make
+                    Reservation</button></a>
+            <a href="/"><button type="btn btn-lg btn-defalut"><span class="glyphicon glyphicon-home"></span>
+                </button></a>
+
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    function runTableQuery() {
+        var currentUrl = window.location.origin;
+
+        $.ajax({ url: currentURL + "/api/tables", method: "GET" })
+            .done(function (tableData) {
+                for (var i = 0; i < tableData.length; i++) {
+                    console.log(tableData[i]);
+
+
+                    var tableSection = $("<div>");
+                    tableSection.addClass('well');
+                    tableSection.attr('id', 'tableWell-' + i + 1);
+                    $("#tableSection").append(tableSection);
+
+                    var tableNumber = i + 1;
+
+                    $("#tableWell-" + i + 1).append('<h2><span class="label label-primary">' + tableNumber + "</span> | " + tableData[i].customerID + "</h2>");
+                }
+            });
+    }
+
+    function runWaitListQuery() {
+        var currentUrl = window.location.origin;
+
+        $.ajax({ url: currentURL + "/api/waitlist", method: "GET" })
+            .done(function (waitlistData) {
+                for (var i = 0; i < waitlistData.length; i++) {
+                    console.log(waitlistData[i]);
+
+
+                    var waitlistSection = $("<div>");
+                    waitlistSection.addClass('well');
+                    waitlistSection.attr('id', 'waitlistWell' - + i + 1);
+                    $("#waitlistSection").append(waitlistSection);
+
+                    var tableNumber = i + 1;
+
+                    $("#waitlistWell-" + i + 1).append('<h2><span class="label label-primary">' + tableNumber + "</span> | " + waitlistData[i].customerID + "</h2>");
+                }
+            });
+    }
+    runTableQuery();
+    runWaitListQuery();
+
+</script>
+
+</html>
